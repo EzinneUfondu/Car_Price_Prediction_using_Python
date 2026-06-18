@@ -1,93 +1,96 @@
 # Car_Price_Prediction_using_Python
 This project demonstrates how numerical vehicle features can be used to predict prices and classify vehicles into market segments.
 
-📘 Automobile Price Prediction & Classification
+A machine learning project that predicts automobile prices based on technical specifications and physical features, using the UCI Automobile dataset.
 
-A machine learning project that predicts automobile prices using numerical vehicle features and classifies cars into low, medium, and high price categories. This project demonstrates data cleaning, exploratory data analysis (EDA), feature engineering, regression modelling, classification, and model evaluation.
 
-🤖Project Overview
-This project uses the Automobile Dataset to explore how vehicle characteristics influence price. The workflow includes:
-Cleaning missing and inconsistent data
-Converting data types
-Exploratory data analysis with summary statistics, correlations, and boxplots
-Feature selection
-Building regression models (Linear Regression & Random Forest)
-Building a classification model (Logistic Regression)
-Comparing train–test splits (80/20 vs 70/30)
-Extracting business insights
-The goal is to understand which features drive price and how well different models can predict or classify vehicle prices.
+## Overview
 
-📂 Dataset
-The dataset contains numerical and categorical attributes such as:
-Engine size
-Horsepower
-Curb weight
-Width
-Fuel type
-Body style
-Price
-Missing values were represented with "?" and replaced with NaN before type conversion.
-🧹 Data Cleaning
-Key cleaning steps:
-Replaced "?" with NaN
-Converted numerical columns using pd.to_numeric(errors="coerce")
-Removed rows with missing target values
-Ensured all selected features were numeric
-📊 Exploratory Data Analysis (EDA)
-EDA included:
-Summary statistics (df.describe())
-Correlation heatmap to identify strong predictors
-Boxplots to examine distributions and detect outliers
-Outliers were retained because they represented real high‑performance vehicles
-🛠 Feature Engineering
-For regression, four numerical features were selected:
-Engine size
-Horsepower
-Curb weight
-Width
-For classification, price was binned into low, medium, and high using qcut.
-Why binning matters:  
-Binning prevents class imbalance, ensures fair representation of each price group, and improves classification stability.
-🤖 Models Used
-Linear Regression
-Baseline model
-Simple and interpretable
-Performance dropped slightly when training data was reduced (70/30 split)
-Random Forest Regression
-Best performing model
-Captured non‑linear relationships
-Stable across both 80/20 and 70/30 splits
-Logistic Regression (Classification)
-Used to classify cars into price categories
-Performed well with balanced bins
-🏋️‍♀️ Train–Test Split Comparison
-Two splits were tested:
-80/20 (standard)
-70/30 (larger test set)
-Findings:
-Linear Regression became less stable with 70/30
-Random Forest remained consistent across both splits
-Ensemble models handle data variation better
-📈 Visuals (Screenshots to Include)
-Summary statistics
-Correlation heatmap
-Boxplots of numerical features
-Actual vs predicted scatter plot (Linear Regression)
-Random Forest results
-Logistic Regression confusion matrix
-70/30 split results
-💼 Business Insights
-Key insights for manufacturers and dealerships:
-Performance‑related features (engine size, horsepower, curb weight, width) strongly influence price
-Random Forest provides reliable pricing predictions even when data availability changes
-Classification helps segment vehicles into meaningful market categories
-Robust models support better pricing strategies and market positioning
-🧾 Conclusion
-This project demonstrates how numerical vehicle features can be used to predict prices and classify vehicles into market segments. Random Forest proved to be the most reliable model, showing strong performance and stability across different train-test splits. The classification model further supported segmentation strategies by accurately grouping vehicles into price categories. Overall, the project highlights the value of machine learning in supporting data‑driven pricing decisions.
-📚 Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit‑learn
+Car pricing is influenced by a combination of performance metrics, engine specifications, and physical dimensions. This project applies data analytics and machine learning to explore those relationships and build models that can predict car prices — both as a continuous value and as a category (Low, Medium, High).
+
+The project was completed as part of the Fundamentals of Data Analytics module (MSc Data Analytics, BSBI / University for the Creative Arts, 2026).
+
+
+## Dataset
+
+- **Source:** UCI Machine Learning Repository via IBM Developer Skills Network
+- **URL:** https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101ENSkillsNetwork/labs/Data%20files/auto.csv
+- **Size:** 205 rows, 26 features
+- **Target Variable:** `price`
+
+Key features used in modelling: `engine-size`, `horsepower`, `curb-weight`, `width`
+
+
+## Methods
+
+### 1. Data Cleaning
+- Replaced `"?"` with `NaN` for proper missing value handling
+- Converted `price` and `horsepower` to numeric (float)
+- Dropped rows with missing values in key modelling columns
+
+### 2. Exploratory Data Analysis (EDA)
+- Descriptive statistics: mean, median, standard deviation
+- Correlation heatmap to identify features most related to price
+- Boxplot: Price vs Body Style
+- Histogram: Price and Horsepower distributions
+- Scatter plots: Individual feature relationships with price
+
+### 3. Feature Engineering
+- Created `city-L/100km` column: `235 / city-mpg`
+- Applied horsepower binning: Low / Medium / High
+- Normalised selected features
+
+### 4. Model Development
+
+**Regression (predicting continuous price):**
+- Linear Regression — baseline model
+- Random Forest Regressor — ensemble model
+- Tested two train/test splits: 80/20 and 70/30
+
+**Classification (predicting price category):**
+- Price binned into Low, Medium, High using `pd.qcut()`
+- Logistic Regression classifier (~82% accuracy)
+
+### 5. Evaluation Metrics
+- R² Score
+- Mean Absolute Error (MAE)
+- Mean Squared Error (MSE)
+- Accuracy score and Confusion Matrix (classification)
+
+
+## Results
+
+| Model | Split | R² Score |
+|---|---|---|
+| Linear Regression | 80/20 | ~0.764 |
+| Linear Regression | 70/30 | ~0.782 |
+| Random Forest Regressor | 80/20 | Higher & more stable |
+| Logistic Regression (Classification) | 80/20 | ~82% accuracy |
+
+**Key findings:**
+- Engine size, horsepower, curb weight, and width were the strongest predictors of price
+- Random Forest outperformed Linear Regression and remained stable across both splits
+- Logistic Regression successfully classified cars into price categories with ~82% accuracy
+
+
+
+## Libraries Used
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, confusion_matrix
+```
+
+
+
+## Author
+
+**Ezinne Ufondu**
+MSc Data Analytics | BSBI Berlin
+[LinkedIn](https://linkedin.com/in/ezinneufondu) | [GitHub](https://github.com/EzinneUfondu)
